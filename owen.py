@@ -1,5 +1,5 @@
 import bot_token
-import bot_utils
+import bot_utils as owen
 import discord
 
 client = discord.Client()
@@ -16,11 +16,10 @@ async def on_message(message):
     if message.content.startswith('$hello'):
         await message.channel.send('do you listen to death grips?')
 
-    if (message.content.find("the") > -1 and message.content.find("the") < message.content.find("store")):
-        await message.channel.send('{}? is that that one death grips album?'.format(bot_utils.capture_store_string(message.content)))
+    if (message.content.find('the') > -1 and message.content.find('the') < message.content.find('store')):
+        await message.channel.send('{}? is that that one death grips album?'.format(owen.capture_store_string(message.content)))
 
-    if message.content.find("$owen") > -1:
-        await message.channel.send(bot_utils.say_something_silly())
+    if message.content.find('$owen') > -1:
+        await message.channel.send(owen.say_something_silly())
 
 client.run(bot_token.token)
-
