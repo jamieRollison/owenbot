@@ -1,25 +1,26 @@
-import bot_token
-import bot_utils as owen
-import discord
+# the owen object with its functions go here. if you are writing a description, please provide a description
 
-client = discord.Client()
+import random
+class Owen:
+    sillies_list = "placeholder"
 
-@client.event
-async def on_ready():
-    print('We have logged in as {0.user}'.format(client))
+    #initalizes the files
+    def __init__(self):
+        with open('./resources/sillies.txt', 'r') as funny_file:
+            self.sillies_list = funny_file.readlines()
 
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
+    # returns the string "the __ store" for the death grips bit
+    # precon: all the words exist in the string
+    # doesn't work if the "store" joke contains the word store
+    # also only finds the first one
+    def capture_store_string(self, line):
+        return line[line.find("the") : line.find("store") + 5]
 
-    if message.content.startswith('$hello'):
-        await message.channel.send('do you listen to death grips?')
-
-    if (message.content.find('the') > -1 and message.content.find('the') < message.content.find('store')):
-        await message.channel.send('{}? is that that one death grips album?'.format(owen.capture_store_string(message.content)))
-
-    if message.content.find('$owen') > -1:
-        await message.channel.send(owen.say_something_silly())
-
-client.run(bot_token.token)
+    # pulls owenisms from the file and returns a random one
+    def say_something_silly(self):
+        return self.sillies_list[random.randint(0,len(self.sillies_list)-1)].strip()
+    #does the
+    def knower(self, line):
+        for word in line.split(' '):
+            if word.endswith('er'):
+                return word
